@@ -1,0 +1,21 @@
+{
+    "name": "nickurt/zf-bugsnag",
+    "description": "ZfBugsnag",
+    "license": "MIT",
+    "keywords": [
+        "ZfBugsnag",
+        "bugsnag"
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "bugsnag/bugsnag": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "ZfBugsnag": "src/"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    }
+}
