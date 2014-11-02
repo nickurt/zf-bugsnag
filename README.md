@@ -1,4 +1,6 @@
-## ZfBugsnag
+## Bugsnag Notifier for Zend Framework 2
+### Bugsnag?
+The Bugsnag Notifier for Zend Framework 2 gives you instant notifications of the errors in your application. You can create a free plan/account on the [bugsnag](https://bugsnag.com) website.
 ### Install
 #### Installation with the composer
 ```sh
@@ -18,8 +20,12 @@ Enable it in your `application.config.php` file
 <?php
 return array(
     'modules' => array(
+        'ZfBugsnag', // Must be added as the first module
         // ...
-        'ZfBugsnag',
     ),
     // ...
 );
+```
+### Configuration
+
+Copy the `config/zfbugsnag.local.php` file to your `config/autoload` folder and change the settings (IsEnabled/ApiKey)
