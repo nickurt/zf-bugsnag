@@ -1,7 +1,7 @@
 <?php
 return [
-    'zf-bugsnag' => [
-    	/**
+	'zf-bugsnag' => [
+		/**
 		 * Enabled
 		 * is the ZfBugsnag Application enabled?
 		 * Default: true
@@ -42,5 +42,5 @@ return [
 		 * Default: true
 		 */
 		'autoNotify' => true,
-    ],
+	],
 ];
