@@ -31,6 +31,16 @@ class BugsnagService
         {
             // Bugsnag
             $bugsnag        = new \Bugsnag_Client($this->options->getApiKey());
+            $bugsnag->setReleaseStage($this->options->getReleaseStage());
+            $bugsnag->setNotifyReleaseStages($this->options->getNotifyReleaseStages());
+            $bugsnag->setNotifier([
+                'name'    =>    'ZfBugsnag',
+                'version' =>    \ZfBugsnag\Version::VERSION,
+                'url'     =>    'https://github.com/nickurt/zf-bugsnag'
+            ]);
+            $bugsnag->setAppVersion(\ZfBugsnag\Version::VERSION);
+            $bugsnag->setAutoNotify($this->options->getAutoNotify());
+            $bugsnag->setSendEnvironment($this->options->getSendEnvironment());
 
             // Set the handler for the exceptions
             set_error_handler(array($bugsnag, 'errorHandler'));
