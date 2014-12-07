@@ -1,13 +1,46 @@
 <?php
 return [
     'zf-bugsnag' => [
-		'enabled'				=>	true,
-		'api_key'				=>	'YOUR-API-KEY-HERE',
+    	/**
+		 * Enabled
+		 * is the ZfBugsnag Application enabled?
+		 * Default: true
+		 */
+		'enabled' => true,
 
-		'releaseStage'			=>	'development',
-		'notifyReleaseStages'	=>	['development', 'production'],
-		'sendEnvironment'		=>	false,
+		/**
+		 * ApiKey
+		 * The ApiKey you can find on your Bugsnag dashboard
+		 */
+		'api_key' => 'YOUR-API-KEY-HERE',
 
-		'autoNotify'			=>	true,
+		/**
+		 * releaseStage
+		 * The ReleaseStage that the error occurred in
+		 * Default: development
+		 */
+		'releaseStage' => 'development',
+
+		/**
+		 * notifyReleaseStages
+		 * Which ReleaseStages should send notifications to Bugsnag?
+		 * Default: ['development', 'production']
+		 */
+		'notifyReleaseStages' => ['development', 'production'],
+
+		/**
+		 * sendEnvironment
+		 * Bugsnag can diagnose your $_ENV environment to help fixing your issues.
+		 * This can contain private/sensitive information, so be carefull when you enabled this
+		 * Default: false
+		 */
+		'sendEnvironment' => false,
+
+		/**
+		 * autoNotify
+		 * The ZfBugsnag will notify Bugsnag of any uncaught exception (if possible)
+		 * Default: true
+		 */
+		'autoNotify' => true,
     ],
 ];

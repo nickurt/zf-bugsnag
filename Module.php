@@ -33,25 +33,25 @@ class Module
 
     public function getAutoloaderConfig()
     {
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
+        return [
+            'Zend\Loader\StandardAutoloader' => [
+                'namespaces' => [
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     public function getServiceConfig()
     {
-        return array(
-            'factories' => array(
+        return [
+            'factories' => [
                 'BugsnagServiceException' =>  function($sm) {
                     $options = $sm->get('ZfBugsnag\Options\BugsnagOptions');
                     $service = new \ZfBugsnag\Service\BugsnagService($options);
                     return $service;
                 },
-            ),
-        );
+            ],
+        ];
     }
 }
