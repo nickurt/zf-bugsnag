@@ -16,12 +16,15 @@ class Module
         if(!$services->get('ZfBugsnag\Options\BugsnagOptions')->getEnabled())
             return;
 
-        $eventManager->attach('dispatch.error', function ($event) use ($services) {
-            $exception          =   $event->getResult()->exception;
+        $service            =   $services->get('BugsnagServiceException');
+        // Register the PHP exception and error handlers
+        $service->setupErrorHandlers();
+
+        $eventManager->attach('dispatch.error', function ($event) use ($services, $service) {
+            $exception      =   $event->getResult()->exception;
             // No exception, stop the script
             if (!$exception) return;
 
-            $service            =   $services->get('BugsnagServiceException');
             $service->sendException($exception);
         });
     }

@@ -42,5 +42,13 @@ return [
 		 * Default: true
 		 */
 		'autoNotify' => true,
+
+		/**
+		 * appVersion
+		 * The version of the application that will be sent to BugSnag,
+		 * useful when fixing errors so Bugsnag reports errors if they appear
+		 * in a new version of the app.
+		 */
+		'appVersion' => '1.0.0'
 	],
 ];
