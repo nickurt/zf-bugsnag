@@ -17,6 +17,8 @@ class BugsnagOptions extends AbstractOptions
 
     protected $sendEnvironment;
 
+    protected $appVersion;
+
     /**
      * setApiKey
      * @param String $apiKey
@@ -63,12 +65,21 @@ class BugsnagOptions extends AbstractOptions
     }
 
     /**
-     * sendEnvironment
+     * setSendEnvironment
      * @param Boolean $sendEnvironment
      */
     public function setSendEnvironment($sendEnvironment)
     {
         $this->sendEnvironment = (bool) $sendEnvironment;
+    }
+
+    /**
+     * setAppVersion
+     * @param String $appVersion
+     */
+    public function setAppVersion($appVersion)
+    {
+        $this->appVersion = $appVersion;
     }
 
     /**
@@ -81,7 +92,7 @@ class BugsnagOptions extends AbstractOptions
     }
 
     /**
-     * getEnabled 
+     * getEnabled
      * @return Boolean $isEnabled
      */
     public function getEnabled()
@@ -123,5 +134,14 @@ class BugsnagOptions extends AbstractOptions
     public function getSendEnvironment()
     {
         return $this->sendEnvironment;
+    }
+
+    /**
+     * getAppVersion
+     * @return String $appVersion
+     */
+    public function getAppVersion()
+    {
+        return $this->appVersion;
     }
 }
