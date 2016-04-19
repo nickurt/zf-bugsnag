@@ -57,7 +57,7 @@ class BugsnagService
     /**
      * errorHandler
      * Handles PHP errors and sends them to Bugsnag, will call existing error handler
-     * if one was defined.
+     * if one was defined, if not, returns error to PHP's native error handling.
      *
      * @param Integer $errno Error number
      * @param String $errsrt Error message
@@ -67,33 +67,49 @@ class BugsnagService
      */
     public function errorHandler($errno, $errstr, $errfile = '', $errline = 0, $errcontext = [])
     {
-        $result = $this->bugsnag->errorHandler($errno, $errstr, $errfile, $errline);
+        try
+        {
+            $this->bugsnag->errorHandler($errno, $errstr, $errfile, $errline);
+        } catch (\Exception $e) {
+            // Something wrong in the bugsnag notify call
+        }
 
         if($this->oldErrorHandler)
         {
             return call_user_func($this->oldErrorHandler, $errno, $errstr, $errfile, $errline, $errcontext);
         }
 
-        return $result;
+        // Returning false here returns error handling to native PHP error handling
+        // which may log the error, or display on screen, depending on environment's config
+        return false;
     }
 
     /**
      * exceptionHandler
      * Handles uncaught Exceptions and sends them to Bugsnag, will call existing exception handler
-     * if one was defined.
+     * if one was defined, if not, re-throws the exception for PHP to handle, instead of swallowing it.
      *
      * @param object \Exception $exception The exception to pass
      */
     public function exceptionHandler($exception)
     {
-        $result = $this->bugsnag->exceptionHandler($exception);
+        try
+        {
+            $this->bugsnag->exceptionHandler($exception);
+        } catch (\Exception $e) {
+            // Something wrong in the bugsnag notify call
+        }
 
         if($this->oldExceptionHandler)
         {
             return call_user_func($this->oldExceptionHandler, $exception);
         }
 
-        return $result;
+        // This will still allow the exception to bubble up to PHP's native uncaught
+        // exception handling (which will throw a PHP Fatal error since the exception
+        // would be uncaught at this point).
+        restore_exception_handler();
+        throw $exception;
     }
 
     /**
