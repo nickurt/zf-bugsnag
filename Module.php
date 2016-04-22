@@ -20,8 +20,8 @@ class Module
         // Register the PHP exception and error handlers
         $service->setupErrorHandlers();
 
-        $eventManager->attach('dispatch.error', function ($event) use ($services, $service) {
-            $exception      =   $event->getResult()->exception;
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, function ($event) use ($services, $service) {
+            $exception      =   $event->getParam('exception');
             // No exception, stop the script
             if (!$exception) return;
 
