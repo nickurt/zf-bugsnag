@@ -117,17 +117,17 @@ class BugsnagService
 
     /**
      * sendException
-     * Send the Exception to the Bugsnag Servers
+     * Send the non-fatal/handled throwable to the Bugsnag Servers
      *
-     * @param object \Exception $e
+     * @param object \Throwable $throwable the throwable to notify Bugsnag about
      */
-    public function sendException(\Exception $e)
+    public function sendException($throwable)
     {
         // Check if we have to send the Exception
         if($this->options->getEnabled())
         {
             // Send it
-            $this->bugsnag->notifyException($e);
+            $this->bugsnag->notifyException($throwable);
         }
     }
 }
