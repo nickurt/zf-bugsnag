@@ -3,6 +3,7 @@ namespace ZfBugsnag\Options;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
 
 class BugsnagOptionsFactory implements FactoryInterface
 {
@@ -11,8 +12,16 @@ class BugsnagOptionsFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $options = $serviceLocator->get('Config');
+        return $this($serviceLocator, BugsnagOptions::class);
+    }
 
-        return new BugsnagOptions($options['zf-bugsnag']);
+    /**
+     * {@inheritDoc}
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $config = $container->get('Config');
+
+        return new BugsnagOptions($config['zf-bugsnag']);
     }
 }
